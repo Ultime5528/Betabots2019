@@ -1,6 +1,6 @@
 package com.ultime5528.betabots2019.robot;
 
-import com.ultime5528.betabots2019.maths.Vector2d;
+import edu.wpi.first.wpilibj.geometry.Translation2d;
 
 /**
  * Constants
@@ -12,12 +12,12 @@ public class Constants {
 
 
     public static class Drive {
-        public static final double ORIGINE_ROTATION_Y = -305.75 - 228.6;
+        public static final Translation2d CENTRE_ROTATION = new Translation2d(0, 0.30575 + 0.2286);
 
-        public static final Vector2d ROUES_POSITIONS_NORD = new Vector2d(0, ORIGINE_ROTATION_Y + 250);
-        public static final Vector2d ROUES_POSITIONS_SUD = new Vector2d(0, ORIGINE_ROTATION_Y - 250);
-        public static final Vector2d ROUES_POSITIONS_EST = new Vector2d(250, ORIGINE_ROTATION_Y);
-        public static final Vector2d ROUES_POSITIONS_OUEST = new Vector2d(-250, ORIGINE_ROTATION_Y);
+        public static final Translation2d ROUES_POSITIONS_NORD = new Translation2d(0, 250);
+        public static final Translation2d ROUES_POSITIONS_SUD = new Translation2d(0, -250);
+        public static final Translation2d ROUES_POSITIONS_EST = new Translation2d(250, 0);
+        public static final Translation2d ROUES_POSITIONS_OUEST = new Translation2d(-250, 0);
 
         public static final double TURN_FACTOR = 1;
     }

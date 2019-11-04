@@ -10,40 +10,40 @@ package com.ultime5528.betabots2019.utils;
 import java.util.stream.DoubleStream;
 
 public class OktoDriveWheelSpeeds {
-  public double frontLeftMetersPerSecond;
+  public double northMetersPerSecond;
 
-  public double frontRightMetersPerSecond;
+  public double southMetersPerSecond;
 
-  public double rearLeftMetersPerSecond;
+  public double eastMetersPerSecond;
 
-  public double rearRightMetersPerSecond;
+  public double westMetersPerSecond;
 
   public OktoDriveWheelSpeeds() {
   }
 
-  public OktoDriveWheelSpeeds(double frontLeftMetersPerSecond,
-                                 double frontRightMetersPerSecond,
-                                 double rearLeftMetersPerSecond,
-                                 double rearRightMetersPerSecond) {
-    this.frontLeftMetersPerSecond = frontLeftMetersPerSecond;
-    this.frontRightMetersPerSecond = frontRightMetersPerSecond;
-    this.rearLeftMetersPerSecond = rearLeftMetersPerSecond;
-    this.rearRightMetersPerSecond = rearRightMetersPerSecond;
+  public OktoDriveWheelSpeeds(double northMetersPerSecond,
+                                 double southMetersPerSecond,
+                                 double eastMetersPerSecond,
+                                 double westMetersPerSecond) {
+    this.northMetersPerSecond = northMetersPerSecond;
+    this.southMetersPerSecond = southMetersPerSecond;
+    this.eastMetersPerSecond = eastMetersPerSecond;
+    this.westMetersPerSecond = westMetersPerSecond;
   }
 
   public void normalize(double attainableMaxSpeedMetersPerSecond) {
-    double realMaxSpeed = DoubleStream.of(frontLeftMetersPerSecond,
-        frontRightMetersPerSecond, rearLeftMetersPerSecond, rearRightMetersPerSecond)
+    double realMaxSpeed = DoubleStream.of(northMetersPerSecond,
+        southMetersPerSecond, eastMetersPerSecond, westMetersPerSecond)
         .max().getAsDouble();
 
     if (realMaxSpeed > attainableMaxSpeedMetersPerSecond) {
-      frontLeftMetersPerSecond = frontLeftMetersPerSecond / realMaxSpeed
+      northMetersPerSecond = northMetersPerSecond / realMaxSpeed
           * attainableMaxSpeedMetersPerSecond;
-      frontRightMetersPerSecond = frontRightMetersPerSecond / realMaxSpeed
+      southMetersPerSecond = southMetersPerSecond / realMaxSpeed
           * attainableMaxSpeedMetersPerSecond;
-      rearLeftMetersPerSecond = rearLeftMetersPerSecond / realMaxSpeed
+      eastMetersPerSecond = eastMetersPerSecond / realMaxSpeed
           * attainableMaxSpeedMetersPerSecond;
-      rearRightMetersPerSecond = rearRightMetersPerSecond / realMaxSpeed
+      westMetersPerSecond = westMetersPerSecond / realMaxSpeed
           * attainableMaxSpeedMetersPerSecond;
     }
   }
