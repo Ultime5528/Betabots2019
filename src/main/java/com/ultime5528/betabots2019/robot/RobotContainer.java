@@ -1,8 +1,11 @@
-package frc.robot;
+package com.ultime5528.betabots2019.robot;
+
+import com.ultime5528.betabots2019.commands.Piloter;
+import com.ultime5528.betabots2019.commands.Tourner;
+import com.ultime5528.betabots2019.subsystems.BasePilotable;
 
 import edu.wpi.first.wpilibj.Joystick;
-import frc.commands.Piloter;
-import frc.subsystems.BasePilotable;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 /**
  * RobotContainer
@@ -20,7 +23,6 @@ public class RobotContainer {
     }
 
     public void configureBindings(){
-        
+        new JoystickButton(joystick, 1).whenPressed(new Tourner(basePilotable));
     }
-
 }

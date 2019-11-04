@@ -5,20 +5,17 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.commands;
+package com.ultime5528.betabots2019.commands;
 
-import edu.wpi.first.wpilibj.Joystick;
+import com.ultime5528.betabots2019.subsystems.BasePilotable;
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.subsystems.BasePilotable;
 
-public class Piloter extends CommandBase {
-
+public class Tourner extends CommandBase {
   private BasePilotable basePilotable;
-  private Joystick joystick;
 
-  public Piloter(BasePilotable basePilotable, Joystick joystick) {
+  public Tourner(BasePilotable basePilotable) {
     this.basePilotable = basePilotable;
-    this.joystick = joystick;
   }
 
   @Override
@@ -27,7 +24,6 @@ public class Piloter extends CommandBase {
 
   @Override
   public void execute() {
-    basePilotable.oktoDrive(joystick.getX(), joystick.getY(), joystick.getZ());
   }
 
   @Override
@@ -37,7 +33,5 @@ public class Piloter extends CommandBase {
 
   @Override
   public void end(boolean interrupted) {
-    basePilotable.stop();
   }
-
 }

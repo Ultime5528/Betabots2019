@@ -5,15 +5,15 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.subsystems;
+package com.ultime5528.betabots2019.subsystems;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.ultime5528.betabots2019.maths.MathUtils;
+import com.ultime5528.betabots2019.maths.Vector2d;
+import com.ultime5528.betabots2019.robot.Constants;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.maths.MathUtils;
-import frc.maths.Vector2d;
-import frc.robot.Constants;
 
 /**
  * Add your docs here.
@@ -30,21 +30,23 @@ public class BasePilotable extends SubsystemBase {
   }
 
   public void oktoDrive(double x, double y, double turn) {
-    double w = turn * Constants.Drive.TURN_FACTOR * Math.PI;
+    double rotation = turn * Constants.Drive.TURN_FACTOR;
 
-    Vector2d V = new Vector2d(x, y);
+    Vector2d vecteurVitesse = new Vector2d(x, y);
 
-    double vitesseN = V.getY() + Constants.Drive.ROUES_POSITIONS[0].getX() * w;
-    double vitesseS = V.getY() + Constants.Drive.ROUES_POSITIONS[1].getX() * w;
-    double vitesseE = V.getX() + Constants.Drive.ROUES_POSITIONS[2].getY() * w;
-    double vitesseO = V.getX() + Constants.Drive.ROUES_POSITIONS[3].getY() * w;
+    double vitesseN = vecteurVitesse.getX() + Constants.Drive.ROUES_POSITIONS_NORD.getY() * rotation;
+    double vitesseS = vecteurVitesse.getX() + Constants.Drive.ROUES_POSITIONS_SUD.getY() * rotation;
+    double vitesseE = vecteurVitesse.getY() + Constants.Drive.ROUES_POSITIONS_EST.getX() * rotation;
+    double vitesseO = vecteurVitesse.getY() + Constants.Drive.ROUES_POSITIONS_OUEST.getX() * rotation;
 
     double largest = MathUtils.absArgmax(vitesseN, vitesseS, vitesseE, vitesseO);
 
-    vitesseN /= largest;
-    vitesseS /= largest;
-    vitesseE /= largest;
-    vitesseO /= largest;
+    if(largest > 1){
+      vitesseN /= largest;
+      vitesseS /= largest;
+      vitesseE /= largest;
+      vitesseO /= largest;
+    }
 
     moteurNord.set(vitesseN);
     moteurSud.set(vitesseS);
