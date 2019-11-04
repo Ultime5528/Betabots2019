@@ -29,10 +29,10 @@ public class BasePilotable extends SubsystemBase {
   public OktoDriveKinematics kinematics;
 
   public BasePilotable() {
-    moteurNord = new CANSparkMax(0, MotorType.kBrushless);
-    moteurSud = new CANSparkMax(1, MotorType.kBrushless);
-    moteurEst = new CANSparkMax(2, MotorType.kBrushless);
-    moteurOuest = new CANSparkMax(3, MotorType.kBrushless);
+    moteurNord = new CANSparkMax(1, MotorType.kBrushless);
+    moteurSud = new CANSparkMax(2, MotorType.kBrushless);
+    moteurEst = new CANSparkMax(3, MotorType.kBrushless);
+    moteurOuest = new CANSparkMax(4, MotorType.kBrushless);
 
     moteurNordPID = moteurNord.getPIDController();
     moteurSudPID = moteurSud.getPIDController();
