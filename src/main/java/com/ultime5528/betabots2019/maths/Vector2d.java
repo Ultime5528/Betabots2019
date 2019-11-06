@@ -1,4 +1,4 @@
-package frc.maths;
+package com.ultime5528.betabots2019.maths;
 
 /**
  * Vector2
