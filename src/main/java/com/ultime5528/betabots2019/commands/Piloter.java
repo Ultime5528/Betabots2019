@@ -7,17 +7,18 @@
 
 package com.ultime5528.betabots2019.commands;
 
-import com.ultime5528.betabots2019.subsystems.BasePilotable;
+import com.ultime5528.betabots2019.robot.Constants;
+import com.ultime5528.betabots2019.subsystems.BasePilotableOkto;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class Piloter extends CommandBase {
 
-  private BasePilotable basePilotable;
+  private BasePilotableOkto basePilotable;
   private Joystick joystick;
 
-  public Piloter(BasePilotable basePilotable, Joystick joystick) {
+  public Piloter(BasePilotableOkto basePilotable, Joystick joystick) {
     this.basePilotable = basePilotable;
     this.joystick = joystick;
   }
@@ -28,7 +29,9 @@ public class Piloter extends CommandBase {
 
   @Override
   public void execute() {
-    basePilotable.oktoDrive(joystick.getX(), joystick.getY(), joystick.getZ());
+    basePilotable.oktoDrive(joystick.getX() * Constants.Drive.MAX_SPEED_METRES_PAR_SEC,
+        -joystick.getY() * Constants.Drive.MAX_SPEED_METRES_PAR_SEC,
+        joystick.getZ() * Constants.Drive.MAX_TURN_RAD_PAR_SEC);
   }
 
   @Override

@@ -19,6 +19,11 @@ public class Constants {
         public static final Translation2d ROUES_POSITIONS_EST = new Translation2d(250, 0);
         public static final Translation2d ROUES_POSITIONS_OUEST = new Translation2d(-250, 0);
 
-        public static final double TURN_FACTOR = 1;
+        public static final double MAX_SPEED_METRES_PAR_SEC = 2;
+        public static final double MAX_TURN_RAD_PAR_SEC = Math.PI / 2;
+
+        public static final double MAX_ACCEL_TURN_RAD_PAR_SEC2 = 0;
+
+        public static final double ANGLE_THRESHOLD = 0.06;
     }
 }
