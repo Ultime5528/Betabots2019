@@ -1,6 +1,6 @@
 plugins {
     id "java"
-    id "edu.wpi.first.GradleRIO" version "2019.1.1"
+    id "edu.wpi.first.GradleRIO" version "2019.4.1"
 }
 
 def ROBOT_MAIN_CLASS = "com.ultime5528.betabots2019.robot.Main"
@@ -51,7 +51,7 @@ dependencies {
     nativeZip wpi.deps.vendor.jni(wpi.platforms.roborio)
     nativeDesktopZip wpi.deps.vendor.jni(wpi.platforms.desktop)
     testCompile 'junit:junit:4.12'
-	implementation 'com.github.Oblarg:command-rewrite-jitpack:1.5.1'
+	compile 'com.github.Oblarg:command-rewrite-jitpack:1.5.1'
     compile group: 'org.ejml', name: 'ejml-simple', version: '0.38'
 }
 

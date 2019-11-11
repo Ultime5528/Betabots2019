@@ -7,6 +7,7 @@
 
 package com.ultime5528.betabots2019.subsystems;
 
+import com.analog.adis16448.frc.ADIS16448_IMU;
 import com.revrobotics.CANEncoder;
 import com.revrobotics.CANPIDController;
 import com.revrobotics.CANSparkMax;
@@ -22,6 +23,8 @@ import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.geometry.Translation2d;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class BasePilotableOkto extends SubsystemBase {
@@ -30,7 +33,7 @@ public class BasePilotableOkto extends SubsystemBase {
   private CANEncoder encodeurNord, encodeurSud, encodeurEst, encodeurOuest;
   private CANPIDController moteurNordPID, moteurSudPID, moteurEstPID, moteurOuestPID;
 
-  private ADXRS450_Gyro gyro;
+  private ADIS16448_IMU gyro;
 
   private OktoDriveKinematics kinematics;
   private OktoDriveOdometry odometry;
@@ -43,17 +46,50 @@ public class BasePilotableOkto extends SubsystemBase {
     moteurEst = new CANSparkMax(3, MotorType.kBrushless);
     moteurOuest = new CANSparkMax(4, MotorType.kBrushless);
 
+    moteurEst.setInverted(true);
+
     encodeurNord = moteurNord.getEncoder();
     encodeurSud = moteurSud.getEncoder();
     encodeurEst = moteurEst.getEncoder();
     encodeurOuest = moteurOuest.getEncoder();
+
+    encodeurNord.setPositionConversionFactor(Constants.Drive.DISTANCE_PER_TICK);
+    encodeurNord.setVelocityConversionFactor(Constants.Drive.DISTANCE_PER_TICK);
+    encodeurSud.setPositionConversionFactor(Constants.Drive.DISTANCE_PER_TICK);
+    encodeurSud.setVelocityConversionFactor(Constants.Drive.DISTANCE_PER_TICK);
+    encodeurEst.setPositionConversionFactor(Constants.Drive.DISTANCE_PER_TICK);
+    encodeurEst.setVelocityConversionFactor(Constants.Drive.DISTANCE_PER_TICK);
+    encodeurOuest.setPositionConversionFactor(Constants.Drive.DISTANCE_PER_TICK);
+    encodeurOuest.setVelocityConversionFactor(Constants.Drive.DISTANCE_PER_TICK);
 
     moteurNordPID = moteurNord.getPIDController();
     moteurSudPID = moteurSud.getPIDController();
     moteurEstPID = moteurEst.getPIDController();
     moteurOuestPID = moteurOuest.getPIDController();
 
-    gyro = new ADXRS450_Gyro();
+    moteurNordPID.setP(Constants.Drive.P);
+    moteurNordPID.setI(Constants.Drive.I);
+    moteurNordPID.setD(Constants.Drive.D);
+    moteurNordPID.setFF(Constants.Drive.FF);
+
+    moteurOuestPID.setP(Constants.Drive.P);
+    moteurOuestPID.setI(Constants.Drive.I);
+    moteurOuestPID.setD(Constants.Drive.D);
+    moteurOuestPID.setFF(Constants.Drive.FF);
+
+    moteurSudPID.setP(Constants.Drive.P);
+    moteurSudPID.setI(Constants.Drive.I);
+    moteurSudPID.setD(Constants.Drive.D);
+    moteurSudPID.setFF(Constants.Drive.FF);
+
+    moteurEstPID.setP(Constants.Drive.P);
+    moteurEstPID.setI(Constants.Drive.I);
+    moteurEstPID.setD(Constants.Drive.D);
+    moteurEstPID.setFF(Constants.Drive.FF);
+
+    gyro = new ADIS16448_IMU();
+    gyro.calibrate();
+    addChild("Gyro", gyro);
     // TODO changer gyro + calibrer
 
     kinematics = new OktoDriveKinematics(Constants.Drive.ROUES_POSITIONS_NORD, Constants.Drive.ROUES_POSITIONS_SUD,
@@ -93,14 +129,24 @@ public class BasePilotableOkto extends SubsystemBase {
 
     // Update the pose
     pose = odometry.update(angle, wheelSpeeds);
+
+    SmartDashboard.putNumber("moteurNord output", moteurNord.get());
+    SmartDashboard.putNumber("moteurNord vitesse", encodeurNord.getVelocity());
+    SmartDashboard.putNumber("moteurSud output", moteurSud.get());
+    SmartDashboard.putNumber("moteurSud vitesse", encodeurSud.getVelocity());
+    SmartDashboard.putNumber("moteurOuest output", moteurOuest.get());
+    SmartDashboard.putNumber("moteurOuest vitesse", encodeurOuest.getVelocity());
+    SmartDashboard.putNumber("moteurEst output", moteurEst.get());
+    SmartDashboard.putNumber("moteurEst vitesse", encodeurEst.getVelocity());
+
   }
 
   public double getAngle() {
-    return gyro.getAngle();
+    return gyro.getAngleZ();
   }
 
   public double getVitesseGyro() {
-    return gyro.getRate();
+    return gyro.getRateZ();
   }
 
   public Translation2d getTranslation() {

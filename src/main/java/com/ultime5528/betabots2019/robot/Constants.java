@@ -14,6 +14,13 @@ public class Constants {
     public static class Drive {
         public static final Translation2d CENTRE_ROTATION = new Translation2d(0, 0.30575 + 0.2286);
 
+        public static final double P = 5e-5;
+        public static final double I = 1e-6;
+        public static final double D = 0.0;
+        public static final double FF = 1;
+
+        public static final double DISTANCE_PER_TICK = 0.0005;
+        
         public static final Translation2d ROUES_POSITIONS_NORD = new Translation2d(0, 250);
         public static final Translation2d ROUES_POSITIONS_SUD = new Translation2d(0, -250);
         public static final Translation2d ROUES_POSITIONS_EST = new Translation2d(250, 0);

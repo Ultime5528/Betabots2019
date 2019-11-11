@@ -21,6 +21,7 @@ public class Piloter extends CommandBase {
   public Piloter(BasePilotableOkto basePilotable, Joystick joystick) {
     this.basePilotable = basePilotable;
     this.joystick = joystick;
+    addRequirements(basePilotable);
   }
 
   @Override

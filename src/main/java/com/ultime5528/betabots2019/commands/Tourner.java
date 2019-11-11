@@ -31,8 +31,10 @@ public class Tourner extends CommandBase {
   public Tourner(BasePilotableOkto basePilotable, Translation2d goal) {
     this.basePilotable = basePilotable;
     this.goalposition = goal;
-    var currentdistance = basePilotable.getTranslation()
-    goal = new TrapezoidProfile.State(angle, 0);
+    var currentdistance = basePilotable.getTranslation();
+    // TODO Erreur de compilation pendant tests
+    // TODO Renommer les goals (confusion entre paramètre et variable de classe)
+    // this.goal = new TrapezoidProfile.State(angle, 0);
   }
 
   @Override
