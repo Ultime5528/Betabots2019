@@ -11,7 +11,6 @@ import com.ultime5528.betabots2019.robot.Constants;
 import com.ultime5528.betabots2019.subsystems.BasePilotableOkto;
 
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.geometry.Translation2d;
 import edu.wpi.first.wpilibj.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
@@ -26,15 +25,9 @@ public class Tourner extends CommandBase {
   private TrapezoidProfile.State goal;
   private TrapezoidProfile.State current = new TrapezoidProfile.State(0, 0);
 
-  private Translation2d goalposition;
-
-  public Tourner(BasePilotableOkto basePilotable, Translation2d goal) {
-    this.basePilotable = basePilotable;
-    this.goalposition = goal;
-    var currentdistance = basePilotable.getTranslation();
-    // TODO Erreur de compilation pendant tests
-    // TODO Renommer les goals (confusion entre paramètre et variable de classe)
-    // this.goal = new TrapezoidProfile.State(angle, 0);
+  public Tourner(BasePilotableOkto basePilotable, double angle) {
+    this.basePilotable = basePilotable;    
+    this.goal = new TrapezoidProfile.State(angle, 0);
   }
 
   @Override
