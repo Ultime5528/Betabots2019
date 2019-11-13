@@ -27,13 +27,16 @@ public class Constants {
         public static final Translation2d ROUES_POSITIONS_OUEST = new Translation2d(-250, 0);
 
         public static final double MAX_SPEED_METRES_PAR_SEC = 2;
+        public static final double MAX_ACCEL_SPEED_RAD_PAR_SEC2 = 0; // TODO set constant
+
         public static final double MAX_TURN_RAD_PAR_SEC = Math.PI / 2;
+        public static final double MAX_ACCEL_TURN_RAD_PAR_SEC2 = 0; // TODO set constant
 
-        public static final double MAX_ACCEL_TURN_RAD_PAR_SEC2 = 0;
+        public static final double TOURNER_ANGLE_THRESHOLD = 0.06;
 
-        public static final double ANGLE_THRESHOLD = 0.06;
+        public static final double AVANCER_DIST_THRESHOLD = 0.01;
 
         public static final double PILOTER_DIFF_THRESHOLD = 0.05;
-        
+
     }
 }
