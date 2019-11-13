@@ -22,6 +22,7 @@ public class Tourner extends CommandBase {
   private final TrapezoidProfile.Constraints constraints = new TrapezoidProfile.Constraints(
       Math.toDegrees(Constants.Drive.MAX_TURN_RAD_PAR_SEC),
       Math.toDegrees(Constants.Drive.MAX_ACCEL_TURN_RAD_PAR_SEC2));
+
   private TrapezoidProfile.State goal;
   private TrapezoidProfile.State current = new TrapezoidProfile.State(0, 0);
 
@@ -49,7 +50,7 @@ public class Tourner extends CommandBase {
 
   @Override
   public boolean isFinished() {
-    return Math.abs(goal.position - current.position) < Constants.Drive.ANGLE_THRESHOLD;
+    return Math.abs(goal.position - current.position) < Constants.Drive.TOURNER_ANGLE_THRESHOLD;
   }
 
   @Override
