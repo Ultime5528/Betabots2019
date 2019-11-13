@@ -32,5 +32,8 @@ public class Constants {
         public static final double MAX_ACCEL_TURN_RAD_PAR_SEC2 = 0;
 
         public static final double ANGLE_THRESHOLD = 0.06;
+
+        public static final double PILOTER_DIFF_THRESHOLD = 0.05;
+        
     }
 }

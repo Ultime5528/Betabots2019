@@ -40,6 +40,8 @@ public class BasePilotableOkto extends SubsystemBase {
 
   private Pose2d pose;
 
+  private ChassisSpeeds robotSpeed = new ChassisSpeeds();
+
   public BasePilotableOkto() {
     moteurNord = new CANSparkMax(1, MotorType.kBrushless);
     moteurSud = new CANSparkMax(2, MotorType.kBrushless);
@@ -125,6 +127,8 @@ public class BasePilotableOkto extends SubsystemBase {
     OktoDriveWheelSpeeds wheelSpeeds = new OktoDriveWheelSpeeds(encodeurNord.getVelocity(), encodeurSud.getVelocity(),
     encodeurEst.getVelocity(), encodeurOuest.getVelocity());
 
+    robotSpeed = kinematics.toChassisSpeeds(wheelSpeeds);
+
     var angle = Rotation2d.fromDegrees(-getAngle());
 
     // Update the pose
@@ -141,10 +145,22 @@ public class BasePilotableOkto extends SubsystemBase {
 
   }
 
+  public Translation2d getSpeed() {
+    return new Translation2d(robotSpeed.vxMetersPerSecond, robotSpeed.vyMetersPerSecond);
+  }
+
+  public double getRotationSpeed() {
+    return robotSpeed.omegaRadiansPerSecond; // TODO comparer avec getVitesseGyro()
+  }
+
   public double getAngle() {
     return gyro.getAngleZ();
   }
 
+  /**
+   * 
+   * @return la vitesse de rotation du robot dans le sens horaire, en °/s.
+   */
   public double getVitesseGyro() {
     return gyro.getRateZ();
   }
