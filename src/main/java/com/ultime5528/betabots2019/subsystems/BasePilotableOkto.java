@@ -55,14 +55,14 @@ public class BasePilotableOkto extends SubsystemBase {
     encodeurEst = moteurEst.getEncoder();
     encodeurOuest = moteurOuest.getEncoder();
 
-    encodeurNord.setPositionConversionFactor(Constants.Drive.DISTANCE_PER_TICK);
-    encodeurNord.setVelocityConversionFactor(Constants.Drive.DISTANCE_PER_TICK);
-    encodeurSud.setPositionConversionFactor(Constants.Drive.DISTANCE_PER_TICK);
-    encodeurSud.setVelocityConversionFactor(Constants.Drive.DISTANCE_PER_TICK);
-    encodeurEst.setPositionConversionFactor(Constants.Drive.DISTANCE_PER_TICK);
-    encodeurEst.setVelocityConversionFactor(Constants.Drive.DISTANCE_PER_TICK);
-    encodeurOuest.setPositionConversionFactor(Constants.Drive.DISTANCE_PER_TICK);
-    encodeurOuest.setVelocityConversionFactor(Constants.Drive.DISTANCE_PER_TICK);
+    encodeurNord.setPositionConversionFactor(Constants.Drive.ENCODER_CONVERSION_FACTOR);
+    encodeurNord.setVelocityConversionFactor(Constants.Drive.ENCODER_CONVERSION_FACTOR);
+    encodeurSud.setPositionConversionFactor(Constants.Drive.ENCODER_CONVERSION_FACTOR);
+    encodeurSud.setVelocityConversionFactor(Constants.Drive.ENCODER_CONVERSION_FACTOR);
+    encodeurEst.setPositionConversionFactor(Constants.Drive.ENCODER_CONVERSION_FACTOR);
+    encodeurEst.setVelocityConversionFactor(Constants.Drive.ENCODER_CONVERSION_FACTOR);
+    encodeurOuest.setPositionConversionFactor(Constants.Drive.ENCODER_CONVERSION_FACTOR);
+    encodeurOuest.setVelocityConversionFactor(Constants.Drive.ENCODER_CONVERSION_FACTOR);
 
     moteurNordPID = moteurNord.getPIDController();
     moteurSudPID = moteurSud.getPIDController();
@@ -125,7 +125,7 @@ public class BasePilotableOkto extends SubsystemBase {
   @Override
   public void periodic() {
     OktoDriveWheelSpeeds wheelSpeeds = new OktoDriveWheelSpeeds(encodeurNord.getVelocity(), encodeurSud.getVelocity(),
-    encodeurEst.getVelocity(), encodeurOuest.getVelocity());
+        encodeurEst.getVelocity(), encodeurOuest.getVelocity());
 
     robotSpeed = kinematics.toChassisSpeeds(wheelSpeeds);
 
@@ -171,6 +171,29 @@ public class BasePilotableOkto extends SubsystemBase {
 
   public Rotation2d getRotation() {
     return pose.getRotation();
+  }
+
+  public double getVitesseNord(){
+    return encodeurNord.getVelocity();
+  }
+
+  public double getVitesseSud(){
+    return encodeurSud.getVelocity();
+  }
+
+  public double getVitesseEst(){
+    return encodeurEst.getVelocity();
+  }
+
+  public double getVitesseOuest(){
+    return encodeurOuest.getVelocity();
+  }
+
+  public void setMoteurs(double nord, double sud, double est, double ouest) {
+    moteurNord.set(nord);
+    moteurSud.set(sud);
+    moteurEst.set(est);
+    moteurOuest.set(ouest);
   }
 
   public void stop() {
