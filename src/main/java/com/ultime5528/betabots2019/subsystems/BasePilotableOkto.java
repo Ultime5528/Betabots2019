@@ -12,6 +12,7 @@ import com.revrobotics.CANEncoder;
 import com.revrobotics.CANPIDController;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.ControlType;
+import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.ultime5528.betabots2019.robot.Constants;
 import com.ultime5528.betabots2019.utils.ChassisSpeeds;
@@ -49,20 +50,23 @@ public class BasePilotableOkto extends SubsystemBase {
     moteurOuest = new CANSparkMax(4, MotorType.kBrushless);
 
     moteurEst.setInverted(true);
+    moteurSud.setInverted(true);
 
     encodeurNord = moteurNord.getEncoder();
     encodeurSud = moteurSud.getEncoder();
     encodeurEst = moteurEst.getEncoder();
     encodeurOuest = moteurOuest.getEncoder();
 
-    encodeurNord.setPositionConversionFactor(Constants.Drive.ENCODER_CONVERSION_FACTOR);
-    encodeurNord.setVelocityConversionFactor(Constants.Drive.ENCODER_CONVERSION_FACTOR);
-    encodeurSud.setPositionConversionFactor(Constants.Drive.ENCODER_CONVERSION_FACTOR);
-    encodeurSud.setVelocityConversionFactor(Constants.Drive.ENCODER_CONVERSION_FACTOR);
-    encodeurEst.setPositionConversionFactor(Constants.Drive.ENCODER_CONVERSION_FACTOR);
-    encodeurEst.setVelocityConversionFactor(Constants.Drive.ENCODER_CONVERSION_FACTOR);
-    encodeurOuest.setPositionConversionFactor(Constants.Drive.ENCODER_CONVERSION_FACTOR);
-    encodeurOuest.setVelocityConversionFactor(Constants.Drive.ENCODER_CONVERSION_FACTOR);
+    setIdleMode(IdleMode.kBrake);
+
+    encodeurNord.setPositionConversionFactor(Constants.Drive.POSITION_CONVERSION_FACTOR);
+    encodeurNord.setVelocityConversionFactor(Constants.Drive.VELOCITY_CONVERSION_FACTOR);
+    encodeurSud.setPositionConversionFactor(Constants.Drive.POSITION_CONVERSION_FACTOR);
+    encodeurSud.setVelocityConversionFactor(Constants.Drive.VELOCITY_CONVERSION_FACTOR);
+    encodeurEst.setPositionConversionFactor(Constants.Drive.POSITION_CONVERSION_FACTOR);
+    encodeurEst.setVelocityConversionFactor(Constants.Drive.VELOCITY_CONVERSION_FACTOR);
+    encodeurOuest.setPositionConversionFactor(Constants.Drive.POSITION_CONVERSION_FACTOR);
+    encodeurOuest.setVelocityConversionFactor(Constants.Drive.VELOCITY_CONVERSION_FACTOR);
 
     moteurNordPID = moteurNord.getPIDController();
     moteurSudPID = moteurSud.getPIDController();
@@ -136,13 +140,26 @@ public class BasePilotableOkto extends SubsystemBase {
 
     SmartDashboard.putNumber("moteurNord output", moteurNord.get());
     SmartDashboard.putNumber("moteurNord vitesse", encodeurNord.getVelocity());
+    SmartDashboard.putNumber("moteurNord position", encodeurNord.getPosition());
+
     SmartDashboard.putNumber("moteurSud output", moteurSud.get());
     SmartDashboard.putNumber("moteurSud vitesse", encodeurSud.getVelocity());
-    SmartDashboard.putNumber("moteurOuest output", moteurOuest.get());
-    SmartDashboard.putNumber("moteurOuest vitesse", encodeurOuest.getVelocity());
+    SmartDashboard.putNumber("moteurSud position", encodeurSud.getPosition());
+
     SmartDashboard.putNumber("moteurEst output", moteurEst.get());
     SmartDashboard.putNumber("moteurEst vitesse", encodeurEst.getVelocity());
+    SmartDashboard.putNumber("moteurEst position", encodeurEst.getPosition());
 
+    SmartDashboard.putNumber("moteurOuest output", moteurOuest.get());
+    SmartDashboard.putNumber("moteurOuest vitesse", encodeurOuest.getVelocity());
+    SmartDashboard.putNumber("moteurOuest position", encodeurOuest.getPosition());
+  }
+
+  public void setIdleMode(IdleMode mode){
+    moteurNord.setIdleMode(mode);
+    moteurSud.setIdleMode(mode);
+    moteurEst.setIdleMode(mode);
+    moteurOuest.setIdleMode(mode);
   }
 
   public Translation2d getSpeed() {

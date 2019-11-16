@@ -61,6 +61,7 @@ public class Piloter extends CommandBase {
     }
 
     basePilotable.oktoDrive(speed.getX(), speed.getY(), omega);
+    // basePilotable.oktoDrive(0.1, 0.0, 0.0);
   }
 
   @Override

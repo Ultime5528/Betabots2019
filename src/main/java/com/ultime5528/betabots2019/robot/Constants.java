@@ -21,7 +21,8 @@ public class Constants {
 
         public static final double WHEEL_DIAMETER = 4 * 0.0254; //4 po -> m
         public static final double GEARBOX_RATIO = 1 / 10.75;
-        public static final double ENCODER_CONVERSION_FACTOR = GEARBOX_RATIO * WHEEL_DIAMETER * Math.PI;
+        public static final double POSITION_CONVERSION_FACTOR = GEARBOX_RATIO * WHEEL_DIAMETER * Math.PI;
+        public static final double VELOCITY_CONVERSION_FACTOR = POSITION_CONVERSION_FACTOR / 60; // RPM -­> m/s
         
         public static final Translation2d ROUES_POSITIONS_NORD = new Translation2d(0, 0.255);
         public static final Translation2d ROUES_POSITIONS_SUD = new Translation2d(0, -0.255);
