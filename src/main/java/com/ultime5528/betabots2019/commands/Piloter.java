@@ -54,14 +54,14 @@ public class Piloter extends CommandBase {
     double omegaDiff = omegaJoystick - omegaRobot;
 
     double omega;
-    if(Math.abs(omegaDiff) <= Constants.Drive.PILOTER_DIFF_THRESHOLD){
+    if(Math.abs(omegaDiff) <= Constants.Drive.PILOTER_DIFF_THRESHOLD){ // TODO Ajouter un threshold spécifique pour l'angle
       omega = omegaJoystick;
     } else {
       omega = omegaRobot + Math.signum(omegaDiff) * Constants.Drive.PILOTER_DIFF_THRESHOLD;
     }
 
+    //System.out.println(speed.getX() + ", " + speed.getY() + ", " + omega);
     basePilotable.oktoDrive(speed.getX(), speed.getY(), omega);
-    // basePilotable.oktoDrive(0.1, 0.0, 0.0);
   }
 
   @Override

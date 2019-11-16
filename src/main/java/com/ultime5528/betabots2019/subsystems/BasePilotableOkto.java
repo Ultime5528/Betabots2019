@@ -120,10 +120,13 @@ public class BasePilotableOkto extends SubsystemBase {
     OktoDriveWheelSpeeds speeds = kinematics.toWheelSpeeds(new ChassisSpeeds(forwardSpeed, sideSpeed, turn),
         Constants.Drive.CENTRE_ROTATION);
 
+    System.out.println(speeds);
+
     moteurNordPID.setReference(speeds.northMetersPerSecond, ControlType.kVelocity);
     moteurSudPID.setReference(speeds.southMetersPerSecond, ControlType.kVelocity);
     moteurEstPID.setReference(speeds.eastMetersPerSecond, ControlType.kVelocity);
     moteurOuestPID.setReference(speeds.westMetersPerSecond, ControlType.kVelocity);
+    
   }
 
   @Override
