@@ -11,6 +11,8 @@ import com.ultime5528.betabots2019.robot.Constants;
 import com.ultime5528.betabots2019.subsystems.BasePilotableOkto;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.geometry.Translation2d;
 import edu.wpi.first.wpilibj.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -18,11 +20,11 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 public class Piloter extends CommandBase {
 
   private BasePilotableOkto basePilotable;
-  private Joystick joystick;
+  private XboxController controller;
 
-  public Piloter(BasePilotableOkto basePilotable, Joystick joystick) {
+  public Piloter(BasePilotableOkto basePilotable, XboxController controller) {
     this.basePilotable = basePilotable;
-    this.joystick = joystick;
+    this.controller = controller;
     addRequirements(basePilotable);
   }
 
@@ -34,8 +36,8 @@ public class Piloter extends CommandBase {
   public void execute() {
     // Vitesse
     Translation2d robotSpeed = basePilotable.getSpeed();
-    Translation2d joystickPos = new Translation2d(joystick.getX() * Constants.Drive.MAX_SPEED_METRES_PAR_SEC,
-        -joystick.getY() * Constants.Drive.MAX_SPEED_METRES_PAR_SEC);
+    Translation2d joystickPos = new Translation2d(controller.getX(Hand.kLeft) * Constants.Drive.MAX_SPEED_METRES_PAR_SEC,
+        -controller.getY(Hand.kLeft) * Constants.Drive.MAX_SPEED_METRES_PAR_SEC);
 
     Translation2d diff = joystickPos.minus(robotSpeed);
 
@@ -47,7 +49,7 @@ public class Piloter extends CommandBase {
     }
 
     // Omega
-    double omegaJoystick = joystick.getZ() * Constants.Drive.MAX_TURN_RAD_PAR_SEC;
+    double omegaJoystick = controller.getX(Hand.kRight) * Constants.Drive.MAX_TURN_RAD_PAR_SEC;
     double omegaRobot = basePilotable.getRotationSpeed(); // TODO peut-être remplacer par getVitesseGyro() converti en
                                                           // rad/s.
 
