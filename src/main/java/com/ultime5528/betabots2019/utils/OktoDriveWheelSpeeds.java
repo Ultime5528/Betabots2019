@@ -7,6 +7,7 @@
 
 package com.ultime5528.betabots2019.utils;
 
+import java.util.function.DoubleUnaryOperator;
 import java.util.stream.DoubleStream;
 
 public class OktoDriveWheelSpeeds {
@@ -31,7 +32,9 @@ public class OktoDriveWheelSpeeds {
 
     public void normalize(double attainableMaxSpeedMetersPerSecond) {
         double realMaxSpeed = DoubleStream
-                .of(northMetersPerSecond, southMetersPerSecond, eastMetersPerSecond, westMetersPerSecond).max()
+                .of(northMetersPerSecond, southMetersPerSecond, eastMetersPerSecond, westMetersPerSecond)
+                .map(x -> Math.abs(x))
+                .max()
                 .getAsDouble();
 
         if (realMaxSpeed > attainableMaxSpeedMetersPerSecond) {
