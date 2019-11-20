@@ -18,7 +18,8 @@ public class MathUtils {
     }
 
     public static double deadzone(double v, double min){
-        if(Math.abs(v) < min) return 0;
-        else return v;
+        if(v > min) return (v-min)/(1-min);
+        else if(v < -min) return (v+min)/(1-min);
+        else return 0;
     }
 }
