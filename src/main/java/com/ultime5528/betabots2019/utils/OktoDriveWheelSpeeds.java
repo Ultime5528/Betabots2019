@@ -33,7 +33,7 @@ public class OktoDriveWheelSpeeds {
     public void normalize(double attainableMaxSpeedMetersPerSecond) {
         double realMaxSpeed = DoubleStream
                 .of(northMetersPerSecond, southMetersPerSecond, eastMetersPerSecond, westMetersPerSecond)
-                .map(x -> Math.abs(x))
+                .map(Math::abs)
                 .max()
                 .getAsDouble();
 
