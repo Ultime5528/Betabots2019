@@ -7,6 +7,7 @@
 
 package com.ultime5528.betabots2019.commands;
 
+import com.ultime5528.betabots2019.maths.MathUtils;
 import com.ultime5528.betabots2019.robot.Constants;
 import com.ultime5528.betabots2019.subsystems.BasePilotableOkto;
 
@@ -36,8 +37,11 @@ public class Piloter extends CommandBase {
   public void execute() {
     // Vitesse
     Translation2d robotSpeed = basePilotable.getSpeed();
-    Translation2d joystickPos = new Translation2d(controller.getX(Hand.kLeft) * Constants.Drive.MAX_SPEED_METRES_PAR_SEC,
-        -controller.getY(Hand.kLeft) * Constants.Drive.MAX_SPEED_METRES_PAR_SEC);
+    double joystickX = MathUtils.deadzone(controller.getX(Hand.kLeft), Constants.Drive.MIN_DEADZONE);
+    double joystickY = -MathUtils.deadzone(controller.getY(Hand.kLeft), Constants.Drive.MIN_DEADZONE);
+        
+    Translation2d joystickPos = new Translation2d(joystickX * Constants.Drive.MAX_SPEED_METRES_PAR_SEC,
+      joystickY * Constants.Drive.MAX_SPEED_METRES_PAR_SEC);
 
     Translation2d diff = joystickPos.minus(robotSpeed);
 
@@ -49,9 +53,12 @@ public class Piloter extends CommandBase {
     }
 
     // Omega
-    double omegaJoystick = controller.getX(Hand.kRight) * Constants.Drive.MAX_TURN_RAD_PAR_SEC;
+    double joystickZ = MathUtils.deadzone(controller.getX(Hand.kRight), Constants.Drive.MIN_DEADZONE);
+    double omegaJoystick = joystickZ * Constants.Drive.MAX_TURN_RAD_PAR_SEC;
     double omegaRobot = basePilotable.getRotationSpeed(); // TODO peut-être remplacer par getVitesseGyro() converti en
                                                           // rad/s.
+
+    System.out.println(joystickX + ":" + joystickY + ":" + joystickZ);
 
     double omegaDiff = omegaJoystick - omegaRobot;
 

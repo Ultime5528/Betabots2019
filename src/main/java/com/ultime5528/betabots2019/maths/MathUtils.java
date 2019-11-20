@@ -16,4 +16,9 @@ public class MathUtils {
 
         return largest;
     }
+
+    public static double deadzone(double v, double min){
+        if(Math.abs(v) < min) return 0;
+        else return v;
+    }
 }

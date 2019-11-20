@@ -14,10 +14,18 @@ public class Constants {
     public static class Drive {
         public static final Translation2d CENTRE_ROTATION = new Translation2d(0, 0.302 + 0.164);
 
-        public static final double P = 0; //5e-5;
+        public static final double MIN_DEADZONE = 0.15;
+
+        public static final double MAX_SPEED_METRES_PAR_SEC = 2.5; // Mesuré: 2.5 m/s
+        public static final double MAX_ACCEL_SPEED_RAD_PAR_SEC2 = 13.5; // Mesuré: 13.5 m/s^2
+
+        public static final double MAX_TURN_RAD_PAR_SEC = 10; // Mesuré: 10.4 rad/s
+        public static final double MAX_ACCEL_TURN_RAD_PAR_SEC2 = 45.4; // Mesuré: 45.4 rad/s^2
+
+        public static final double P = 0; //1e-4;
         public static final double I = 0; //1e-6;
         public static final double D = 0; //0.0;
-        public static final double FF = 0.25;
+        public static final double FF = 1/MAX_SPEED_METRES_PAR_SEC;
 
         public static final double WHEEL_DIAMETER = 4 * 0.0254; //4 po -> m
         public static final double GEARBOX_RATIO = 1 / 10.75;
@@ -28,12 +36,6 @@ public class Constants {
         public static final Translation2d ROUES_POSITIONS_SUD = new Translation2d(0, -0.255);
         public static final Translation2d ROUES_POSITIONS_EST = new Translation2d(0.250, 0);
         public static final Translation2d ROUES_POSITIONS_OUEST = new Translation2d(-0.250, 0); // TODO checker la translation
-
-        public static final double MAX_SPEED_METRES_PAR_SEC = 2; // Mesuré: 2.5 m/s
-        public static final double MAX_ACCEL_SPEED_RAD_PAR_SEC2 = 5; // Mesuré: 13.5 m/s^2
-
-        public static final double MAX_TURN_RAD_PAR_SEC = 5; // Mesuré: 10 rad/s
-        public static final double MAX_ACCEL_TURN_RAD_PAR_SEC2 = 27.5; // Mesuré: 45.4 rad/s^2
 
         public static final double TOURNER_ANGLE_THRESHOLD = 0.06;
 
