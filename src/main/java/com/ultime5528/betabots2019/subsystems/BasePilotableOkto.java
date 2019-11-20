@@ -7,6 +7,8 @@
 
 package com.ultime5528.betabots2019.subsystems;
 
+import java.util.Arrays;
+
 import com.analog.adis16448.frc.ADIS16448_IMU;
 import com.revrobotics.CANEncoder;
 import com.revrobotics.CANPIDController;
@@ -44,10 +46,19 @@ public class BasePilotableOkto extends SubsystemBase {
   private ChassisSpeeds robotSpeed = new ChassisSpeeds();
 
   public BasePilotableOkto() {
+
+    SmartDashboard.putNumber("P", Constants.Drive.P);
+    SmartDashboard.putNumber("I", Constants.Drive.I);
+    SmartDashboard.putNumber("D", Constants.Drive.D);
+
     moteurNord = new CANSparkMax(1, MotorType.kBrushless);
     moteurSud = new CANSparkMax(2, MotorType.kBrushless);
     moteurEst = new CANSparkMax(3, MotorType.kBrushless);
     moteurOuest = new CANSparkMax(4, MotorType.kBrushless);
+
+    for (CANSparkMax moteur : Arrays.asList(moteurNord, moteurSud, moteurEst, moteurOuest)){
+      configureSparkMax(moteur);
+    }
 
     moteurEst.setInverted(true);
     moteurSud.setInverted(true);
@@ -117,12 +128,18 @@ public class BasePilotableOkto extends SubsystemBase {
    *                     positive) ou vers la gauche (valeur négative).
    */
   public void oktoDrive(double forwardSpeed, double sideSpeed, double turn) {
+    System.out.println(forwardSpeed + " " + sideSpeed + " " + turn);
     OktoDriveWheelSpeeds speeds = kinematics.toWheelSpeeds(new ChassisSpeeds(forwardSpeed, sideSpeed, turn),
         Constants.Drive.CENTRE_ROTATION);
 
     speeds.normalize(Constants.Drive.MAX_SPEED_METRES_PAR_SEC);
 
     System.out.println(speeds);
+
+    SmartDashboard.putNumber("moteurNord reference", speeds.northMetersPerSecond);
+    SmartDashboard.putNumber("moteurSud reference", speeds.southMetersPerSecond);
+    SmartDashboard.putNumber("moteurEst reference", speeds.eastMetersPerSecond);
+    SmartDashboard.putNumber("moteurOuest reference", speeds.westMetersPerSecond);
 
     moteurNordPID.setReference(speeds.northMetersPerSecond, ControlType.kVelocity);
     moteurSudPID.setReference(speeds.southMetersPerSecond, ControlType.kVelocity);
@@ -139,6 +156,34 @@ public class BasePilotableOkto extends SubsystemBase {
     robotSpeed = kinematics.toChassisSpeeds(wheelSpeeds);
 
     var angle = Rotation2d.fromDegrees(-getAngle());
+
+    // PID
+    double new_p = SmartDashboard.getNumber("P", 0);
+    if(Constants.Drive.P != new_p){
+      Constants.Drive.P = new_p;
+      moteurNordPID.setP(Constants.Drive.P);
+      moteurSudPID.setP(Constants.Drive.P);
+      moteurEstPID.setP(Constants.Drive.P);
+      moteurOuestPID.setP(Constants.Drive.P);
+    }
+
+    double new_i = SmartDashboard.getNumber("I", 0);
+    if(Constants.Drive.I != new_i){
+      Constants.Drive.I = new_i;
+      moteurNordPID.setI(Constants.Drive.I);
+      moteurSudPID.setI(Constants.Drive.I);
+      moteurEstPID.setI(Constants.Drive.I);
+      moteurOuestPID.setI(Constants.Drive.I);
+    }
+
+    double new_d = SmartDashboard.getNumber("D", 0);
+    if(Constants.Drive.D != new_d){
+      Constants.Drive.D = new_d;
+      moteurNordPID.setD(Constants.Drive.D);
+      moteurSudPID.setD(Constants.Drive.D);
+      moteurEstPID.setD(Constants.Drive.D);
+      moteurOuestPID.setD(Constants.Drive.D);
+    }
 
     // Update the pose
     pose = odometry.update(angle, wheelSpeeds);
@@ -158,6 +203,15 @@ public class BasePilotableOkto extends SubsystemBase {
     SmartDashboard.putNumber("moteurOuest output", moteurOuest.get());
     SmartDashboard.putNumber("moteurOuest vitesse", encodeurOuest.getVelocity());
     SmartDashboard.putNumber("moteurOuest position", encodeurOuest.getPosition());
+
+    SmartDashboard.putNumber("Odometry rotation speed", Math.toDegrees(getRotationSpeed()));
+    SmartDashboard.putNumber("Gyro rotation speed", getVitesseGyro());
+  }
+
+  private void configureSparkMax(CANSparkMax moteur){
+    moteur.enableVoltageCompensation(12.0);
+    moteur.setClosedLoopRampRate(1);
+    // moteur.setOpenLoopRampRate(10);
   }
 
   public void setIdleMode(IdleMode mode){
