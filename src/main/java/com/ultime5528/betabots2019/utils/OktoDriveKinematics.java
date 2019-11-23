@@ -73,7 +73,7 @@ public class OktoDriveKinematics {
   private void setInverseKinematics(Translation2d north, Translation2d south, Translation2d east, Translation2d west) {
     m_inverseKinematics.setRow(0, 0, 1, 0, north.getY());
     m_inverseKinematics.setRow(1, 0, 1, 0, south.getY());
-    m_inverseKinematics.setRow(2, 0, 0, 1, east.getX());
-    m_inverseKinematics.setRow(3, 0, 0, 1, west.getX());
+    m_inverseKinematics.setRow(2, 0, 0, 1, -east.getX());
+    m_inverseKinematics.setRow(3, 0, 0, 1, -west.getX());
   }
 }

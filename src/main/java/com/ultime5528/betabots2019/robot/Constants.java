@@ -20,7 +20,7 @@ public class Constants {
     }
 
     public static class Drive {
-        public static final Translation2d CENTRE_ROTATION = new Translation2d(0, -0.466); //0.302 + 0.164);
+        public static final Translation2d CENTRE_ROTATION = new Translation2d(0, 0.466); //0.302 + 0.164);
 
         public static final double MIN_DEADZONE = 0.2;
 
