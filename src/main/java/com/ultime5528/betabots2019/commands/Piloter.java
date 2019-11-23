@@ -10,6 +10,7 @@ package com.ultime5528.betabots2019.commands;
 import com.ultime5528.betabots2019.maths.MathUtils;
 import com.ultime5528.betabots2019.robot.Constants;
 import com.ultime5528.betabots2019.subsystems.BasePilotableOkto;
+import com.ultime5528.betabots2019.subsystems.Ejecteur;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;

@@ -51,10 +51,10 @@ public class BasePilotableOkto extends SubsystemBase {
     SmartDashboard.putNumber("I", Constants.Drive.I);
     SmartDashboard.putNumber("D", Constants.Drive.D);
 
-    moteurNord = new CANSparkMax(1, MotorType.kBrushless);
-    moteurSud = new CANSparkMax(2, MotorType.kBrushless);
-    moteurEst = new CANSparkMax(3, MotorType.kBrushless);
-    moteurOuest = new CANSparkMax(4, MotorType.kBrushless);
+    moteurNord = new CANSparkMax(Constants.Ports.MOTEUR_NORD, MotorType.kBrushless);
+    moteurSud = new CANSparkMax(Constants.Ports.MOTEUR_SUD, MotorType.kBrushless);
+    moteurEst = new CANSparkMax(Constants.Ports.MOTEUR_EST, MotorType.kBrushless);
+    moteurOuest = new CANSparkMax(Constants.Ports.MOTEUR_OUEST, MotorType.kBrushless);
 
     for (CANSparkMax moteur : Arrays.asList(moteurNord, moteurSud, moteurEst, moteurOuest)){
       configureSparkMax(moteur);

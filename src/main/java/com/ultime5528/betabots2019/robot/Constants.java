@@ -7,9 +7,17 @@ import edu.wpi.first.wpilibj.geometry.Translation2d;
  */
 public class Constants {
 
-    public static class Ports { 
-    }
+    public static class Ports {
+        // CAN
+        public static final int MOTEUR_NORD = 1;
+        public static final int MOTEUR_SUD = 2;
+        public static final int MOTEUR_EST = 3;
+        public static final int MOTEUR_OUEST = 4;
 
+        // PWM
+        public static final int MOTEUR_EJECTEUR = 5;
+
+    }
 
     public static class Drive {
         public static final Translation2d CENTRE_ROTATION = new Translation2d(0, -0.466); //0.302 + 0.164);
@@ -27,15 +35,16 @@ public class Constants {
         public static double D = 0; //0.0;
         public static final double FF = 1/MAX_SPEED_METRES_PAR_SEC;
 
-        public static final double WHEEL_DIAMETER = 4 * 0.0254; //4 po -> m
+        public static final double WHEEL_DIAMETER = 4 * 0.0254; // 4 po -> m
         public static final double GEARBOX_RATIO = 1 / 10.75;
         public static final double POSITION_CONVERSION_FACTOR = GEARBOX_RATIO * WHEEL_DIAMETER * Math.PI;
         public static final double VELOCITY_CONVERSION_FACTOR = POSITION_CONVERSION_FACTOR / 60; // RPM -­> m/s
-        
+
         public static final Translation2d ROUES_POSITIONS_NORD = new Translation2d(0, 0.255);
         public static final Translation2d ROUES_POSITIONS_SUD = new Translation2d(0, -0.255);
         public static final Translation2d ROUES_POSITIONS_EST = new Translation2d(0.250, 0);
-        public static final Translation2d ROUES_POSITIONS_OUEST = new Translation2d(-0.250, 0); // TODO checker la translation
+        public static final Translation2d ROUES_POSITIONS_OUEST = new Translation2d(-0.250, 0); // TODO checker la
+                                                                                                // translation
 
         public static final double TOURNER_ANGLE_THRESHOLD = 0.06;
 
@@ -43,5 +52,16 @@ public class Constants {
 
         public static final double PILOTER_DIFF_THRESHOLD = 10;
 
+    }
+    public static class Ejecteur{
+
+        public static final double VITESSE_EJECTION = 0.2;
+        public static final double VITESSE_REVENIR = -0.5;
+
+        public static final double FORCE_MAINTIEN = -0.2;
+
+        public static final double TEMPS_POUSSER = 1;
+        public static final double TEMPS_ATTENTE = 1;
+        public static final double TEMPS_REVENIR = 1;
     }
 }

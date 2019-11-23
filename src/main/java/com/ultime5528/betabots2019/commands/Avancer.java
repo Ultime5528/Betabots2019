@@ -9,6 +9,7 @@ package com.ultime5528.betabots2019.commands;
 
 import com.ultime5528.betabots2019.robot.Constants;
 import com.ultime5528.betabots2019.subsystems.BasePilotableOkto;
+import com.ultime5528.betabots2019.subsystems.Ejecteur;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.geometry.Translation2d;
@@ -36,6 +37,8 @@ public class Avancer extends CommandBase {
     double distToGo = basePilotable.getTranslation().getDistance(goalPosition);
 
     this.goalState = new TrapezoidProfile.State(distToGo, 0);
+
+    addRequirements(basePilotable);
   }
 
   @Override

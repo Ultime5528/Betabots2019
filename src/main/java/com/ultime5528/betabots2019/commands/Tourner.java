@@ -8,7 +8,9 @@
 package com.ultime5528.betabots2019.commands;
 
 import com.ultime5528.betabots2019.robot.Constants;
+
 import com.ultime5528.betabots2019.subsystems.BasePilotableOkto;
+import com.ultime5528.betabots2019.subsystems.Ejecteur;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.trajectory.TrapezoidProfile;
@@ -27,7 +29,8 @@ public class Tourner extends CommandBase {
   private TrapezoidProfile.State current = new TrapezoidProfile.State(0, 0);
 
   public Tourner(BasePilotableOkto basePilotable, double angle) {
-    this.basePilotable = basePilotable;    
+    this.basePilotable = basePilotable;
+    addRequirements(basePilotable);    
     this.goal = new TrapezoidProfile.State(angle, 0);
   }
 

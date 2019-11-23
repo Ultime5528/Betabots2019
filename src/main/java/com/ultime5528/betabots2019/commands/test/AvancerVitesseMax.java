@@ -8,6 +8,7 @@
 package com.ultime5528.betabots2019.commands.test;
 
 import com.ultime5528.betabots2019.subsystems.BasePilotableOkto;
+import com.ultime5528.betabots2019.subsystems.Ejecteur;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
