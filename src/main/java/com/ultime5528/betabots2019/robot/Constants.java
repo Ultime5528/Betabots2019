@@ -30,10 +30,10 @@ public class Constants {
         public static final double MAX_TURN_RAD_PAR_SEC = 3.3; // Mesuré: 10.4 rad/s
         public static final double MAX_ACCEL_TURN_RAD_PAR_SEC2 = 45.4; // Mesuré: 45.4 rad/s^2
 
-        public static double P = 5e-4; //5e-5;
+        public static double P = 1e-5; //5e-5;
         public static double I = 1e-5; //1e-6;
         public static double D = 0; //0.0;
-        public static final double FF = 1/MAX_SPEED_METRES_PAR_SEC;
+        public static double FF = 0.38;
 
         public static final double WHEEL_DIAMETER = 4 * 0.0254; // 4 po -> m
         public static final double GEARBOX_RATIO = 1 / 10.75;

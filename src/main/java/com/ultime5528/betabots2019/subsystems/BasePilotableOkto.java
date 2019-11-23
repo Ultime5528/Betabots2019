@@ -50,6 +50,7 @@ public class BasePilotableOkto extends SubsystemBase {
     SmartDashboard.putNumber("P", Constants.Drive.P);
     SmartDashboard.putNumber("I", Constants.Drive.I);
     SmartDashboard.putNumber("D", Constants.Drive.D);
+    SmartDashboard.putNumber("F", Constants.Drive.FF);
 
     moteurNord = new CANSparkMax(Constants.Ports.MOTEUR_NORD, MotorType.kBrushless);
     moteurSud = new CANSparkMax(Constants.Ports.MOTEUR_SUD, MotorType.kBrushless);
@@ -68,7 +69,7 @@ public class BasePilotableOkto extends SubsystemBase {
     encodeurEst = moteurEst.getEncoder();
     encodeurOuest = moteurOuest.getEncoder();
 
-    setIdleMode(IdleMode.kBrake);
+    setIdleMode(IdleMode.kCoast);
 
     encodeurNord.setPositionConversionFactor(Constants.Drive.POSITION_CONVERSION_FACTOR);
     encodeurNord.setVelocityConversionFactor(Constants.Drive.VELOCITY_CONVERSION_FACTOR);
@@ -183,6 +184,15 @@ public class BasePilotableOkto extends SubsystemBase {
       moteurSudPID.setD(Constants.Drive.D);
       moteurEstPID.setD(Constants.Drive.D);
       moteurOuestPID.setD(Constants.Drive.D);
+    }
+
+    double new_f = SmartDashboard.getNumber("F", 0);
+    if(Constants.Drive.FF != new_f){
+      Constants.Drive.FF = new_f;
+      moteurNordPID.setFF(Constants.Drive.FF);
+      moteurSudPID.setFF(Constants.Drive.FF);
+      moteurEstPID.setFF(Constants.Drive.FF);
+      moteurOuestPID.setFF(Constants.Drive.FF);
     }
 
     // Update the pose
