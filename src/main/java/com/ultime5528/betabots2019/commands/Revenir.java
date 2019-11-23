@@ -42,5 +42,6 @@ public class Revenir extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     ejecteur.stop();
+    timer.stop();
   }
 }

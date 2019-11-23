@@ -38,11 +38,12 @@ public class Pousser extends CommandBase {
 
   @Override
   public boolean isFinished() {
-    return timer.get() <= Constants.Ejecteur.VITESSE_EJECTION;
+    return timer.get() >= Constants.Ejecteur.TEMPS_POUSSER;
   }
 
   @Override
   public void end(boolean interrupted) {
     ejecteur.stop();
+    timer.stop();
   }
 }
