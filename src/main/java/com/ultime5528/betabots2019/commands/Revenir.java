@@ -13,13 +13,11 @@ import com.ultime5528.betabots2019.subsystems.Ejecteur;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-public class Pousser extends CommandBase {
-
+public class Revenir extends CommandBase {
   private final Ejecteur ejecteur;
   private final Timer timer;
 
-  public Pousser(Ejecteur ejecteur) {
-
+  public Revenir(Ejecteur ejecteur){
     this.ejecteur = ejecteur;
     timer = new Timer();
     addRequirements(ejecteur);
@@ -33,12 +31,12 @@ public class Pousser extends CommandBase {
 
   @Override
   public void execute() {
-    ejecteur.pousser();
+    ejecteur.revenir();
   }
 
   @Override
   public boolean isFinished() {
-    return timer.get() >= Constants.Ejecteur.TEMPS_POUSSER;
+   return timer.get() >= Constants.Ejecteur.TEMPS_REVENIR;
   }
 
   @Override

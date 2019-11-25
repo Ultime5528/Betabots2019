@@ -32,7 +32,15 @@ public class Ejecteur extends SubsystemBase {
 
   }
 
+  public void revenir() {
 
+    moteurEjecteur.set(Constants.Ejecteur.VITESSE_REVENIR);
+  }
+
+  public void maintien() {
+
+    moteurEjecteur.set(Constants.Ejecteur.FORCE_MAINTIEN);
+  }
 
   public void stop() {
     moteurEjecteur.set(0.0);

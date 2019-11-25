@@ -7,21 +7,35 @@
 
 package com.ultime5528.betabots2019.commands;
 
-
-import com.ultime5528.betabots2019.robot.Constants;
 import com.ultime5528.betabots2019.subsystems.Ejecteur;
 
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 
-public class Ejecter extends SequentialCommandGroup {
+public class Maintien extends CommandBase {
+  private final Ejecteur ejecteur;
 
-  public Ejecter(Ejecteur ejecteur) {
+  public Maintien(Ejecteur ejecteur){
+    this.ejecteur = ejecteur;
+    addRequirements(ejecteur);
+  }
+
+  @Override
+  public void initialize() {
+
+  }
+
+  @Override
+  public void execute() {
+    ejecteur.maintien();
+  }
+
+  @Override
+  public boolean isFinished() {
+    return(false);
+  }
+
+  @Override
+  public void end(boolean interrupted) {
     
-    super(
-    new Pousser(ejecteur),
-    new WaitCommand(Constants.Ejecteur.TEMPS_ATTENTE),
-    new Revenir(ejecteur)
-    );
   }
 }
