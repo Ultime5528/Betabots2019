@@ -56,13 +56,10 @@ public class Constants {
     public static class Ejecteur{
 
         public static final double VITESSE_EJECTION = -0.2;
-        public static final double VITESSE_REVENIR = 0.2;
 
-        public static final double FORCE_MAINTIEN = 0.0;
 
-        public static final double TEMPS_POUSSER = 0.5;
-        public static final double TEMPS_ATTENTE = 1.0;
-        public static final double TEMPS_REVENIR = 1;
+        public static final double TEMPS_POUSSER = 1.5;
+
         
     }
 }

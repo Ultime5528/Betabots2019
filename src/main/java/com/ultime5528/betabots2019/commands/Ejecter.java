@@ -17,11 +17,6 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 public class Ejecter extends SequentialCommandGroup {
 
   public Ejecter(Ejecteur ejecteur) {
-    
-    super(
-    new Pousser(ejecteur),
-    new WaitCommand(Constants.Ejecteur.TEMPS_ATTENTE),
-    new Revenir(ejecteur)
-    );
+
   }
 }

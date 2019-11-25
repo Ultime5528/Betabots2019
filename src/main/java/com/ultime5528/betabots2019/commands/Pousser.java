@@ -19,7 +19,6 @@ public class Pousser extends CommandBase {
   private final Timer timer;
 
   public Pousser(Ejecteur ejecteur) {
-
     this.ejecteur = ejecteur;
     timer = new Timer();
     addRequirements(ejecteur);
