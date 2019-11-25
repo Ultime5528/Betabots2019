@@ -36,42 +36,25 @@ public class Piloter extends CommandBase {
 
   @Override
   public void execute() {
-    // Vitesse
-    Translation2d robotSpeed = basePilotable.getSpeed();
-    double joystickX = MathUtils.deadzone(controller.getX(Hand.kLeft), Constants.Drive.MIN_DEADZONE);
-    double joystickY = -MathUtils.deadzone(controller.getY(Hand.kLeft), Constants.Drive.MIN_DEADZONE);
-        
-    Translation2d joystickPos = new Translation2d(joystickX * Constants.Drive.MAX_SPEED_METRES_PAR_SEC,
-      joystickY * Constants.Drive.MAX_SPEED_METRES_PAR_SEC);
+    double vitesse = Constants.Drive.MAX_SPEED_METRES_PAR_SEC;
+    double vitesseTurn = Constants.Drive.MAX_TURN_RAD_PAR_SEC;
 
-    Translation2d diff = joystickPos.minus(robotSpeed);
-
-    Translation2d speed;
-    if (diff.getNorm() <= Constants.Drive.PILOTER_DIFF_THRESHOLD) {
-      speed = joystickPos;
+    if (controller.getTriggerAxis(Hand.kRight) > Constants.Drive.THRESHOLD_GACHETTE){
+      vitesse *= Constants.Drive.FACTEUR_VITESSE_1;
+      vitesseTurn *= Constants.Drive.FACTEUR_VITESSE_1;
+    } else if (controller.getTriggerAxis(Hand.kLeft) > Constants.Drive.THRESHOLD_GACHETTE){
+      vitesse *= Constants.Drive.FACTEUR_VITESSE_2;
+      vitesseTurn *= Constants.Drive.FACTEUR_VITESSE_2;
     } else {
-      speed = robotSpeed.plus(diff.times(Constants.Drive.PILOTER_DIFF_THRESHOLD / diff.getNorm()));
+      vitesse *= Constants.Drive.FACTEUR_VITESSE_DEFAULT;
+      vitesseTurn *= Constants.Drive.FACTEUR_VITESSE_DEFAULT;
     }
 
-    // Omega
-    double joystickZ = MathUtils.deadzone(controller.getX(Hand.kRight), Constants.Drive.MIN_DEADZONE);
-    double omegaJoystick = joystickZ * Constants.Drive.MAX_TURN_RAD_PAR_SEC;
-    double omegaRobot = basePilotable.getRotationSpeed(); // TODO peut-être remplacer par getVitesseGyro() converti en
-                                                          // rad/s.
+    double joystickX = MathUtils.deadzone(controller.getX(Hand.kLeft), Constants.Drive.MIN_DEADZONE) * vitesse;
+    double joystickY = -MathUtils.deadzone(controller.getY(Hand.kLeft), Constants.Drive.MIN_DEADZONE) * vitesse;
+    double joystickZ = MathUtils.deadzone(controller.getX(Hand.kRight), Constants.Drive.MIN_DEADZONE) * vitesseTurn;
 
-    System.out.println(joystickX + ":" + joystickY + ":" + joystickZ);
-
-    double omegaDiff = omegaJoystick - omegaRobot;
-
-    double omega;
-    if(Math.abs(omegaDiff) <= Constants.Drive.PILOTER_DIFF_THRESHOLD){ // TODO Ajouter un threshold spécifique pour l'angle
-      omega = omegaJoystick;
-    } else {
-      omega = omegaRobot + Math.signum(omegaDiff) * Constants.Drive.PILOTER_DIFF_THRESHOLD;
-    }
-
-    //System.out.println(speed.getX() + ", " + speed.getY() + ", " + omega);
-    basePilotable.oktoDrive(speed.getX(), speed.getY(), omega);
+    basePilotable.oktoDrive(joystickX, joystickY, joystickZ);
   }
 
   @Override

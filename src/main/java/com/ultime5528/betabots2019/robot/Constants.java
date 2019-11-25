@@ -27,6 +27,10 @@ public class Constants {
         public static final double MAX_SPEED_METRES_PAR_SEC = 2.5; // Mesuré: 2.5 m/s
         public static final double MAX_ACCEL_SPEED_RAD_PAR_SEC2 = 13.5; // Mesuré: 13.5 m/s^2
 
+        public static final double FACTEUR_VITESSE_DEFAULT = 0.5;
+        public static final double FACTEUR_VITESSE_1 = 1;
+        public static final double FACTEUR_VITESSE_2 = 0.25;
+
         public static final double MAX_TURN_RAD_PAR_SEC = 3.3; // Mesuré: 10.4 rad/s
         public static final double MAX_ACCEL_TURN_RAD_PAR_SEC2 = 45.4; // Mesuré: 45.4 rad/s^2
 
@@ -51,6 +55,9 @@ public class Constants {
         public static final double AVANCER_DIST_THRESHOLD = 0.01;
 
         public static final double PILOTER_DIFF_THRESHOLD = 10;
+
+
+        public static final double THRESHOLD_GACHETTE = 0.5;
 
     }
     public static class Ejecteur{
