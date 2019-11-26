@@ -22,8 +22,8 @@ public class Avancer extends CommandBase {
   private TrapezoidProfile profile;
 
   private final TrapezoidProfile.Constraints constraints = new TrapezoidProfile.Constraints(
-      Math.toDegrees(Constants.Drive.MAX_SPEED_METRES_PAR_SEC),
-      Math.toDegrees(Constants.Drive.MAX_ACCEL_SPEED_RAD_PAR_SEC2));
+      0.75,
+      6.0);
 
   private TrapezoidProfile.State goalState;
   private TrapezoidProfile.State current = new TrapezoidProfile.State();
@@ -34,21 +34,24 @@ public class Avancer extends CommandBase {
     this.basePilotable = basePilotable;
 
     this.goalPosition = goalPosition;
-    double distToGo = basePilotable.getTranslation().getDistance(goalPosition);
-
-    this.goalState = new TrapezoidProfile.State(distToGo, 0);
-
+    
+    
     addRequirements(basePilotable);
   }
-
+  
   @Override
   public void initialize() {
+    basePilotable.resetPose();
+    basePilotable.resetGyro();
+    double distToGo = basePilotable.getTranslation().getDistance(goalPosition);
+    this.goalState = new TrapezoidProfile.State(distToGo, 0);
   }
 
   @Override
   public void execute() {
 
-    Translation2d diff = basePilotable.getTranslation().minus(this.goalPosition);
+    Translation2d diff = goalPosition.minus(basePilotable.getTranslation());
+    System.out.println(diff.getNorm());
 
     current.position = goalState.position - diff.getNorm();
     current.velocity = basePilotable.getSpeed().getNorm();
@@ -59,12 +62,12 @@ public class Avancer extends CommandBase {
 
     Translation2d newSpeed = diff.times(setpoint.velocity / diff.getNorm());
 
-    basePilotable.oktoDrive(newSpeed.getX(), newSpeed.getY(), 0); // TODO kP * angle pour la rotation
+    basePilotable.oktoDrive(newSpeed.getX(), newSpeed.getY(), 0.05 * basePilotable.getRotation().getDegrees()); // TODO kP * angle pour la rotation
   }
 
   @Override
   public boolean isFinished() {
-    return basePilotable.getTranslation().getDistance(this.goalPosition) >= Constants.Drive.AVANCER_DIST_THRESHOLD;
+    return basePilotable.getTranslation().getDistance(this.goalPosition) <= Constants.Drive.AVANCER_DIST_THRESHOLD;
   }
 
   @Override

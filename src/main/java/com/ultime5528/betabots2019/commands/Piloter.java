@@ -52,7 +52,7 @@ public class Piloter extends CommandBase {
 
     double joystickX = MathUtils.deadzone(controller.getX(Hand.kLeft), Constants.Drive.MIN_DEADZONE) * vitesse;
     double joystickY = -MathUtils.deadzone(controller.getY(Hand.kLeft), Constants.Drive.MIN_DEADZONE) * vitesse;
-    double joystickZ = MathUtils.deadzone(controller.getX(Hand.kRight), Constants.Drive.MIN_DEADZONE) * vitesseTurn;
+    double joystickZ = -MathUtils.deadzone(controller.getX(Hand.kRight), Constants.Drive.MIN_DEADZONE) * vitesseTurn;
 
     basePilotable.oktoDrive(joystickX, joystickY, joystickZ);
   }

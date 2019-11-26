@@ -25,7 +25,7 @@ public class Constants {
         public static final double MIN_DEADZONE = 0.2;
 
         public static final double MAX_SPEED_METRES_PAR_SEC = 2.5; // Mesuré: 2.5 m/s
-        public static final double MAX_ACCEL_SPEED_RAD_PAR_SEC2 = 13.5; // Mesuré: 13.5 m/s^2
+        public static final double MAX_ACCEL_SPEED_METRES_PAR_SEC2 = 13.5; // Mesuré: 13.5 m/s^2
 
         public static final double FACTEUR_VITESSE_DEFAULT = 0.5;
         public static final double FACTEUR_VITESSE_1 = 1;
@@ -50,9 +50,9 @@ public class Constants {
         public static final Translation2d ROUES_POSITIONS_OUEST = new Translation2d(-0.250, 0); // TODO checker la
                                                                                                 // translation
 
-        public static final double TOURNER_ANGLE_THRESHOLD = 0.06;
+        public static final double TOURNER_ANGLE_THRESHOLD = 2.5;
 
-        public static final double AVANCER_DIST_THRESHOLD = 0.01;
+        public static final double AVANCER_DIST_THRESHOLD = 0.05;
 
         public static final double PILOTER_DIFF_THRESHOLD = 10;
 
@@ -62,14 +62,14 @@ public class Constants {
     }
     public static class Ejecteur{
 
-        public static final double VITESSE_EJECTION = -0.2;
-        public static final double VITESSE_REVENIR = 0.2;
+        public static final double VITESSE_EJECTION = -0.12;
+        public static final double VITESSE_REVENIR = 0.1;
 
         public static final double FORCE_MAINTIEN = 0.0;
 
-        public static final double TEMPS_POUSSER = 0.5;
+        public static final double TEMPS_POUSSER = 1.0;
         public static final double TEMPS_ATTENTE = 1.0;
-        public static final double TEMPS_REVENIR = 1;
+        public static final double TEMPS_REVENIR = 0.5;
         
     }
 }

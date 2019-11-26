@@ -41,7 +41,7 @@ public class BasePilotableOkto extends SubsystemBase {
   private OktoDriveKinematics kinematics;
   private OktoDriveOdometry odometry;
 
-  private Pose2d pose;
+  private Pose2d pose = new Pose2d();
 
   private ChassisSpeeds robotSpeed = new ChassisSpeeds();
 
@@ -129,13 +129,13 @@ public class BasePilotableOkto extends SubsystemBase {
    *                     positive) ou vers la gauche (valeur négative).
    */
   public void oktoDrive(double forwardSpeed, double sideSpeed, double turn) {
-    System.out.println(forwardSpeed + " " + sideSpeed + " " + turn);
+    // System.out.println(forwardSpeed + " " + sideSpeed + " " + turn);
     OktoDriveWheelSpeeds speeds = kinematics.toWheelSpeeds(new ChassisSpeeds(forwardSpeed, sideSpeed, turn),
         Constants.Drive.CENTRE_ROTATION);
 
     speeds.normalize(Constants.Drive.MAX_SPEED_METRES_PAR_SEC);
 
-    System.out.println(speeds);
+    // System.out.println(speeds);
 
     SmartDashboard.putNumber("moteurNord reference", speeds.northMetersPerSecond);
     SmartDashboard.putNumber("moteurSud reference", speeds.southMetersPerSecond);
@@ -198,6 +198,10 @@ public class BasePilotableOkto extends SubsystemBase {
     // Update the pose
     pose = odometry.update(angle, wheelSpeeds);
 
+    SmartDashboard.putNumber("Odometry X", pose.getTranslation().getX());
+    SmartDashboard.putNumber("Odometry Y", pose.getTranslation().getY());
+    SmartDashboard.putNumber("Odometry Angle", pose.getRotation().getDegrees());
+
     SmartDashboard.putNumber("moteurNord output", moteurNord.get());
     SmartDashboard.putNumber("moteurNord vitesse", encodeurNord.getVelocity());
     SmartDashboard.putNumber("moteurNord position", encodeurNord.getPosition());
@@ -251,6 +255,10 @@ public class BasePilotableOkto extends SubsystemBase {
     return gyro.getRateZ();
   }
 
+  public void resetGyro() {
+    gyro.reset();
+  }
+
   public Translation2d getTranslation() {
     return pose.getTranslation();
   }
@@ -287,5 +295,10 @@ public class BasePilotableOkto extends SubsystemBase {
     moteurSud.set(0);
     moteurEst.set(0);
     moteurOuest.set(0);
+  }
+
+  public void resetPose(){
+    pose = new Pose2d();
+    odometry.resetPosition(pose);
   }
 }
