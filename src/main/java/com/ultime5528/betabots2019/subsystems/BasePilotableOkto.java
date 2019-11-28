@@ -156,8 +156,8 @@ public class BasePilotableOkto extends SubsystemBase {
 
     robotSpeed = kinematics.toChassisSpeeds(wheelSpeeds);
 
-    var angle = Rotation2d.fromDegrees(-getAngle());
-
+    var angle = Rotation2d.fromDegrees(getAngle());
+    /*
     // PID
     double new_p = SmartDashboard.getNumber("P", 0);
     if(Constants.Drive.P != new_p){
@@ -194,37 +194,42 @@ public class BasePilotableOkto extends SubsystemBase {
       moteurEstPID.setFF(Constants.Drive.FF);
       moteurOuestPID.setFF(Constants.Drive.FF);
     }
+    */
 
     // Update the pose
     pose = odometry.update(angle, wheelSpeeds);
 
-    SmartDashboard.putNumber("Odometry X", pose.getTranslation().getX());
-    SmartDashboard.putNumber("Odometry Y", pose.getTranslation().getY());
-    SmartDashboard.putNumber("Odometry Angle", pose.getRotation().getDegrees());
+    // SmartDashboard.putNumber("Odometry X", pose.getTranslation().getX());
+    // SmartDashboard.putNumber("Odometry Y", pose.getTranslation().getY());
+    // SmartDashboard.putNumber("Odometry Angle", pose.getRotation().getDegrees());
 
-    SmartDashboard.putNumber("moteurNord output", moteurNord.get());
+    // SmartDashboard.putNumber("moteurNord output", moteurNord.get());
     SmartDashboard.putNumber("moteurNord vitesse", encodeurNord.getVelocity());
-    SmartDashboard.putNumber("moteurNord position", encodeurNord.getPosition());
+    // // SmartDashboard.putNumber("moteurNord position", encodeurNord.getPosition());
 
-    SmartDashboard.putNumber("moteurSud output", moteurSud.get());
+    // SmartDashboard.putNumber("moteurSud output", moteurSud.get());
     SmartDashboard.putNumber("moteurSud vitesse", encodeurSud.getVelocity());
-    SmartDashboard.putNumber("moteurSud position", encodeurSud.getPosition());
+    // // SmartDashboard.putNumber("moteurSud position", encodeurSud.getPosition());
 
-    SmartDashboard.putNumber("moteurEst output", moteurEst.get());
+    // SmartDashboard.putNumber("moteurEst output", moteurEst.get());
     SmartDashboard.putNumber("moteurEst vitesse", encodeurEst.getVelocity());
-    SmartDashboard.putNumber("moteurEst position", encodeurEst.getPosition());
+    // // SmartDashboard.putNumber("moteurEst position", encodeurEst.getPosition());
 
-    SmartDashboard.putNumber("moteurOuest output", moteurOuest.get());
+    // SmartDashboard.putNumber("moteurOuest output", moteurOuest.get());
     SmartDashboard.putNumber("moteurOuest vitesse", encodeurOuest.getVelocity());
-    SmartDashboard.putNumber("moteurOuest position", encodeurOuest.getPosition());
+    // // SmartDashboard.putNumber("moteurOuest position", encodeurOuest.getPosition());
 
-    SmartDashboard.putNumber("Odometry rotation speed", Math.toDegrees(getRotationSpeed()));
-    SmartDashboard.putNumber("Gyro rotation speed", getVitesseGyro());
+    // SmartDashboard.putNumber("Odometry rotation speed", Math.toDegrees(getRotationSpeed()));
+    // SmartDashboard.putNumber("Gyro rotation speed", getVitesseGyro());
+
+    SmartDashboard.putNumber("predicted x", getTranslation().getX());
+    SmartDashboard.putNumber("predicted y", getTranslation().getY());
+    SmartDashboard.putNumber("predicted turn", getRotation().getDegrees());
   }
 
   private void configureSparkMax(CANSparkMax moteur){
     moteur.enableVoltageCompensation(12.0);
-    moteur.setClosedLoopRampRate(1);
+    moteur.setClosedLoopRampRate(Constants.Drive.DEFAULT_RAMPRATE);
     // moteur.setOpenLoopRampRate(10);
   }
 
@@ -295,6 +300,20 @@ public class BasePilotableOkto extends SubsystemBase {
     moteurSud.set(0);
     moteurEst.set(0);
     moteurOuest.set(0);
+  }
+
+  public void setRamprate(double ramprate) {
+    moteurNord.setClosedLoopRampRate(ramprate);
+    moteurSud.setClosedLoopRampRate(ramprate);
+    moteurEst.setClosedLoopRampRate(ramprate);
+    moteurOuest.setClosedLoopRampRate(ramprate);
+  }
+
+  public void setDefaultRamprate() {
+    moteurNord.setClosedLoopRampRate(Constants.Drive.DEFAULT_RAMPRATE);
+    moteurSud.setClosedLoopRampRate(Constants.Drive.DEFAULT_RAMPRATE);
+    moteurEst.setClosedLoopRampRate(Constants.Drive.DEFAULT_RAMPRATE);
+    moteurOuest.setClosedLoopRampRate(Constants.Drive.DEFAULT_RAMPRATE);
   }
 
   public void resetPose(){

@@ -20,6 +20,8 @@ public class Constants {
     }
 
     public static class Drive {
+        public static final double DEFAULT_RAMPRATE = 4;
+
         public static final Translation2d CENTRE_ROTATION = new Translation2d(0, 0.466); //0.302 + 0.164);
 
         public static final double MIN_DEADZONE = 0.2;
@@ -27,15 +29,15 @@ public class Constants {
         public static final double MAX_SPEED_METRES_PAR_SEC = 2.5; // Mesuré: 2.5 m/s
         public static final double MAX_ACCEL_SPEED_METRES_PAR_SEC2 = 13.5; // Mesuré: 13.5 m/s^2
 
-        public static final double FACTEUR_VITESSE_DEFAULT = 0.5;
-        public static final double FACTEUR_VITESSE_1 = 1;
-        public static final double FACTEUR_VITESSE_2 = 0.25;
+        public static final double FACTEUR_VITESSE_DEFAULT = 0.35;
+        public static final double FACTEUR_VITESSE_1 = 0.5;
+        public static final double FACTEUR_VITESSE_2 = 0.20;
 
         public static final double MAX_TURN_RAD_PAR_SEC = 3.3; // Mesuré: 10.4 rad/s
         public static final double MAX_ACCEL_TURN_RAD_PAR_SEC2 = 45.4; // Mesuré: 45.4 rad/s^2
 
         public static double P = 1e-5; //5e-5;
-        public static double I = 1e-5; //1e-6;
+        public static double I = 0; //1e-5; //1e-6;
         public static double D = 0; //0.0;
         public static double FF = 0.38;
 
@@ -60,6 +62,7 @@ public class Constants {
         public static final double THRESHOLD_GACHETTE = 0.5;
 
     }
+
     public static class Ejecteur{
 
         public static final double VITESSE_EJECTION = -0.12;

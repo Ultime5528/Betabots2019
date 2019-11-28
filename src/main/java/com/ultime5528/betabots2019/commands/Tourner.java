@@ -37,8 +37,11 @@ public class Tourner extends CommandBase {
 
   @Override
   public void initialize() {
+    basePilotable.stop();
+    basePilotable.resetPose();
     basePilotable.resetGyro();
     basePilotable.setIdleMode(IdleMode.kBrake);
+    basePilotable.setRamprate(0);
   }
   
   @Override
@@ -62,6 +65,7 @@ public class Tourner extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     basePilotable.stop();
+    basePilotable.setDefaultRamprate();
     basePilotable.setIdleMode(IdleMode.kCoast);
   }
 }

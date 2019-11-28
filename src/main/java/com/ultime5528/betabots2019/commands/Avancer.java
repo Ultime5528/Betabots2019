@@ -41,8 +41,11 @@ public class Avancer extends CommandBase {
   
   @Override
   public void initialize() {
+    basePilotable.stop();
     basePilotable.resetPose();
     basePilotable.resetGyro();
+    basePilotable.setRamprate(0);
+
     double distToGo = basePilotable.getTranslation().getDistance(goalPosition);
     this.goalState = new TrapezoidProfile.State(distToGo, 0);
   }
@@ -62,7 +65,7 @@ public class Avancer extends CommandBase {
 
     Translation2d newSpeed = diff.times(setpoint.velocity / diff.getNorm());
 
-    basePilotable.oktoDrive(newSpeed.getX(), newSpeed.getY(), 0.05 * basePilotable.getRotation().getDegrees()); // TODO kP * angle pour la rotation
+    basePilotable.oktoDrive(newSpeed.getX(), newSpeed.getY(), 0);//0.05 * basePilotable.getRotation().getRadians()); // TODO kP * angle pour la rotation
   }
 
   @Override
@@ -73,5 +76,6 @@ public class Avancer extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     basePilotable.stop();
+    basePilotable.setDefaultRamprate();
   }
 }
