@@ -44,7 +44,7 @@ public class RobotContainer {
         new JoystickButton(levier, 1).toggleWhenPressed(new Ejecter(ejecteur));
         new JoystickButton(controller, 1).toggleWhenPressed(new Avancer(basePilotable, new Translation2d(0, 1)));
         new JoystickButton(controller, 2).toggleWhenPressed(new Tourner(basePilotable, 90.0));
-        new JoystickButton(controller, 5).toggleWhenPressed(new AutonomeDroite(basePilotable));
+        new JoystickButton(controller, 5).toggleWhenPressed(new AutonomeDroite(basePilotable, ejecteur));
     }
 
     
